@@ -10,13 +10,13 @@ variable "vpc_cidr" {
 variable "enable_dns_support" {
   description = "Enable DNS resolution in the VPC"
   type        = bool
-  defult      = true
+  default      = true
 }
 
 variable "enable_dns_hostnames" {
   description = "Enable DNS hostnames in the VPC"
   type        = bool
-  defualt     = true
+  default     = true
 }
 
 variable "tags" {
