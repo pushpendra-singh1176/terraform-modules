@@ -1,16 +1,22 @@
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
+  validation {
+    condition     = can(cidrhost(var.vpc_cidr, 0))
+    error_message = "Please provide a valid CIDR block."
+  }
 }
 
 variable "enable_dns_support" {
   description = "Enable DNS resolution in the VPC"
   type        = bool
+  defult      = true
 }
 
 variable "enable_dns_hostnames" {
   description = "Enable DNS hostnames in the VPC"
   type        = bool
+  defualt     = true
 }
 
 variable "tags" {
