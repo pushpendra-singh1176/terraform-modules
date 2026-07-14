@@ -52,3 +52,7 @@ output "node_group_status" {
   description = "Current status of the EKS Managed Node Group"
   value       = aws_eks_node_group.this.status
 }
+output "cluster_platform_version" {
+  description = "Platform version of the EKS Cluster"
+  value       = aws_eks_cluster.this.platform_version
+}
