@@ -5,7 +5,7 @@ locals {
   cluster_tags = merge(
     var.tags,
     {
-      Name      = var.cluster_name
+      Name      = local.cluster_name
       ManagedBy = "Terraform"
       Module    = "EKS"
     }
@@ -15,7 +15,7 @@ locals {
     var.tags,
     var.node_group.tags,
     {
-      Name = "${var.cluster_name}-${var.node_group.name}"
+      Name = "${local.cluster_name}-${var.node_group.name}"
     }
   )
 
