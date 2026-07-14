@@ -9,6 +9,10 @@ variable "role_name" {
 variable "trusted_services" {
   description = "AWS services allowed to assume this role"
   type        = list(string)
+   validation {
+    condition     = length(var.trusted_services) > 0
+    error_message = "At least one trusted service must be provided."
+  }
 }
 
 variable "assume_role_policy" {
@@ -35,4 +39,5 @@ variable "create_instance_profile" {
 variable "tags" {
   description = "Common Tags"
   type        = map(string)
+  default     = {}
 }
