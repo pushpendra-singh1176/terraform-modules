@@ -15,15 +15,6 @@ variable "trusted_services" {
   }
 }
 
-variable "assume_role_policy" {
-  description = "Assume Role Policy JSON"
-  type        = string
-  validation {
-    condition     = length(trimspace(var.assume_role_policy)) > 0
-    error_message = "The Assume Role Policy JSON cannot be empty."
-  }
-}
-
 variable "managed_policy_arns" {
   description = "List of Managed Policy ARNs"
   type        = list(string)
