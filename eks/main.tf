@@ -38,6 +38,12 @@ resource "aws_eks_cluster" "this" {
   }
 
   tags = local.cluster_tags
+  timeouts {
+    create = "30m"
+    update = "60m"
+    delete = "30m"
+  }
+
 }
 
 # EKS Managed Node Group
@@ -86,6 +92,11 @@ resource "aws_eks_node_group" "this" {
   }
 
   tags = local.node_group_tags
+  timeouts {
+    create = "60m"
+    update = "60m"
+    delete = "30m"
+  }
 
   lifecycle {
 
