@@ -9,6 +9,14 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "EKS Cluster Version"
   type        = string
+  validation {
+   condition = contains(
+    ["1.30", "1.31", "1.32", "1.33"],
+    var.cluster_version
+  )
+
+  error_message = "Unsupported EKS Kubernetes version."
+}
 
 }
 variable "subnet_ids" {
@@ -95,6 +103,14 @@ variable "node_group" {
 
     error_message = "desired_size must be between min_size and max_size."
   }
+  validation {
+    condition     = var.node_group.min_size >= 0
+    error_message = "min_size cannot be negative."
+  }
+  validation {
+    condition     = var.node_group.max_size >= 1
+    error_message = "max_size must be greater than or equal to 1."
+  }
 
   validation {
     condition = contains(
@@ -162,6 +178,14 @@ variable "kms_key_arn" {
   description = "KMS Key ARN used for Kubernetes secret encryption"
   type        = string
   default     = null
+  validation {
+   condition = (
+    var.kms_key_arn == null ||
+    can(regex("^arn:aws:kms:", var.kms_key_arn))
+  )
+
+  error_message = "Invalid KMS Key ARN."
+}
 }
 variable "tags" {
   description = "Common Tags for the EKS Cluster and Node Group"
