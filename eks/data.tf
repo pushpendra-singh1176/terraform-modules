@@ -1,24 +1,20 @@
 ###############################################
 # AWS Account Information
-###############################################
 
 data "aws_caller_identity" "current" {}
 
 ###############################################
 # AWS Region Information
-###############################################
 
 data "aws_region" "current" {}
 
 ###############################################
 # AWS Partition Information
-###############################################
 
 data "aws_partition" "current" {}
 
 ###############################################
 # Available Availability Zones
-###############################################
 
 data "aws_availability_zones" "available" {
   state = "available"
