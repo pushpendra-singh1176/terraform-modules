@@ -1,44 +1,29 @@
-variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
-  type        = string
+variable "public_subnet_cidrs" {
+  description = "List of CIDR blocks for public subnets"
+  type        = list(string)
+
   validation {
-    condition     = can(cidrhost(var.vpc_cidr, 0))
-    error_message = "Please provide a valid CIDR block."
+    condition = length(var.public_subnet_cidrs) >= 2
+    error_message = "At least two public subnet CIDRs are required."
   }
 }
 
-variable "enable_dns_support" {
-  description = "Enable DNS resolution in the VPC"
-  type        = bool
-  default      = true
+variable "private_subnet_cidrs" {
+  description = "List of CIDR blocks for private subnets"
+  type        = list(string)
+
+  validation {
+    condition = length(var.private_subnet_cidrs) >= 2
+    error_message = "At least two private subnet CIDRs are required."
+  }
 }
 
-variable "enable_dns_hostnames" {
-  description = "Enable DNS hostnames in the VPC"
-  type        = bool
-  default     = true
-}
+variable "availability_zones" {
+  description = "List of Availability Zones"
+  type        = list(string)
 
-variable "tags" {
-  description = "Tags to apply to the VPC"
-  type        = map(string)
-}
-variable "public_subnet_cidr" {
-  description = "CIDR block for public subnet"
-  type        = string
-}
-
-variable "private_subnet_cidr" {
-  description = "CIDR block for private subnet"
-  type        = string
-}
-
-variable "public_availability_zone" {
-  description = "Availability Zone for public subnet"
-  type        = string
-}
-
-variable "private_availability_zone" {
-  description = "Availability Zone for private subnet"
-  type        = string
+  validation {
+    condition = length(var.availability_zones) >= 2
+    error_message = "At least two Availability Zones are required."
+  }
 }
